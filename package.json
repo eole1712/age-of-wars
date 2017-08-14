@@ -1,4 +1,6 @@
 {
+  "private": true,
+  "name": "age-of-wars",
   "scripts": {
     "start": "babel-node server",
     "watch": "babel-watch server"
