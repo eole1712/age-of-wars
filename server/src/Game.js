@@ -2,7 +2,7 @@
 
 import { find } from 'lodash';
 
-import { FPS } from '../../config';
+import * as config from '../config';
 import Player from './Player';
 
 export default class Game {
@@ -22,6 +22,10 @@ export default class Game {
     this.players.push(p);
   }
 
+  removePlayer(playerId) {
+    this.players = this.players.filter(p => p.id !== playerId);
+  }
+
   getPlayer(playerId) {
     return find(this.players, { id: playerId });
   }
@@ -32,7 +36,6 @@ export default class Game {
 
   loop() {
     this.sync();
-    console.log('Sync done');
   }
 
   init() {
@@ -42,6 +45,8 @@ export default class Game {
         socket.emit('disconnect');
         console.log('Too much players');
       }
+
+      socket.emit('configuration', config);
       const id = this.players.length ? 'TWO' : 'ONE';
 
       const user = new Player(id);
@@ -54,7 +59,9 @@ export default class Game {
       });
 
       socket.on('buyUnit', (unitId) => {
+        console.log('buyUnit', unitId);
         this.getPlayer(id).buyUnit(unitId);
+        this.sync();
       });
     });
     this.isInitialised = true;
@@ -64,6 +71,6 @@ export default class Game {
     if (!this.isInitialised) {
       this.init();
     }
-    setInterval(() => this.loop(), 1000 / FPS);
+    // setInterval(() => this.loop(), 1000 / config.FPS);
   }
 }

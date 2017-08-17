@@ -1,10 +1,13 @@
 import { mapValues } from 'lodash';
-import { SPEED_RATIO, DIRECTIONS, POSITIONS, UNITS } from '../../config';
+import { SPEED_RATIO, DIRECTIONS, UNITS } from '../config';
+
+let lastId = 0;
 
 class Unit {
-  constructor(id) {
-    this.id = id;
-    this.position = POSITIONS[id];
+  constructor(playerId, position) {
+    this.id = lastId++;
+    this.playerId = playerId;
+    this.position = position;
   }
 
   move() {
@@ -38,6 +41,8 @@ class Unit {
   get json() {
     return {
       id: this.id,
+      type: this.type,
+      playerId: this.playerId,
       hp: this.hp,
       position: this.position,
     };
@@ -46,8 +51,8 @@ class Unit {
 
 const unitBuilder = (className, data) => {
   class u extends Unit {
-    constructor(faction) {
-      super(faction);
+    constructor(playerId, position) {
+      super(playerId, position);
 
       this.type = u.type;
       Object.assign(this, data);

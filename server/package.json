@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "age-of-wars-server",
+  "scripts": {
+    "start": "babel-node index.js",
+    "watch": "babel-watch index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-node6": "^11.0.0",
+    "babel-watch": "^2.0.7"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "http": "^0.0.0",
+    "lodash": "^4.17.4",
+    "path": "^0.12.7",
+    "pixi.js": "^4.5.4",
+    "socket.io": "^2.0.3"
+  }
+}
