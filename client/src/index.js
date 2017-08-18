@@ -4,24 +4,24 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
-import Players from './components/Players';
+import Game from './components/Game';
 import './index.css';
 
 class App {
   constructor() {
     render(
       <AppContainer>
-        <Players />
+        <Game />
       </AppContainer>,
       document.getElementById('root'),
     );
 
     if (module.hot) {
-      module.hot.accept('./components/Players', () => {
-        require('./components/Players');
+      module.hot.accept('./components/Game', () => {
+        console.log('hot call');
         render(
           <AppContainer>
-            <Players />
+            <Game />
           </AppContainer>,
           document.getElementById('root'),
         );

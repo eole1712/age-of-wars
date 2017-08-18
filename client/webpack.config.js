@@ -2,6 +2,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var isDevelopment = process.argv.indexOf('--development') !== -1;
 
@@ -28,17 +29,16 @@ var plugins = [
       collapseWhitespace: !isDevelopment
     },
     inject: true
-  })
+  }),
+  new CopyWebpackPlugin([{ from: 'public', to: 'public' }])
 ];
 
 isDevelopment && plugins.push(new webpack.HotModuleReplacementPlugin());
 
 module.exports = {
-
   cache: isDevelopment,
   entry: entry,
   module: {
-
     loaders: [{
       test: /\.jsx?$/,
       loaders: ['jsx-loader', 'babel-loader', 'react-hot-loader/webpack'],
@@ -54,18 +54,14 @@ module.exports = {
           }
         },
       ],
-    },
-    {
+    }, {
       test: /\.css$/,
       loader: 'css-loader'
-    }
-  ]
+    }],
   },
   output: {
-
     path: path.join(__dirname, 'build'),
-    publicPath: '',
     filename: 'bundle.js'
   },
-  plugins: plugins
+  plugins: plugins,
 };

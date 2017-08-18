@@ -10,6 +10,8 @@
     "babel-loader": "^7.1.1",
     "babel-preset-node6": "^11.0.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.5",
     "html-webpack-plugin": "^2.30.1",
     "jsx-loader": "^0.13.2",
@@ -21,9 +23,13 @@
   },
   "dependencies": {
     "express": "^4.15.4",
+    "lodash": "^4.17.4",
     "path": "^0.12.7",
+    "pixi.js": "^4.5.4",
     "react": "^15.6.1",
+    "react-animation-frame": "^0.2.1",
     "react-dom": "^15.6.1",
+    "react-pixi": "^0.9.14",
     "socket.io-client": "^2.0.3"
   }
 }

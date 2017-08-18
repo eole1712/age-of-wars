@@ -17,7 +17,7 @@ export const DIRECTIONS = {
 };
 
 export const UNITS = {
-  Solder: {
+  TrollGreen: {
     maxHP: 10,
     gold: 15,
     cost: 20,
@@ -25,7 +25,7 @@ export const UNITS = {
     range: 1,
     speed: 1,
   },
-  Archer: {
+  Knight: {
     maxHP: 5,
     gold: 23,
     cost: 30,
@@ -33,7 +33,7 @@ export const UNITS = {
     range: 3,
     speed: 1,
   },
-  Troll: {
+  Warrior: {
     maxHP: 30,
     gold: 45,
     cost: 60,

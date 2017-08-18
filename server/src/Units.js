@@ -8,10 +8,11 @@ class Unit {
     this.id = lastId++;
     this.playerId = playerId;
     this.position = position;
+    this.direction = DIRECTIONS[this.playerId];
   }
 
   move() {
-    this.position += this.speed * DIRECTIONS[this.id] * SPEED_RATIO;
+    this.position += this.speed * this.direction * SPEED_RATIO;
   }
 
   isInRangeToAttack(unit) {
@@ -45,6 +46,7 @@ class Unit {
       playerId: this.playerId,
       hp: this.hp,
       position: this.position,
+      direction: this.direction,
     };
   }
 }
