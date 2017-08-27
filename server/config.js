@@ -1,5 +1,4 @@
 export const FPS = 30;
-export const SPEED_RATIO = 40;
 
 export const PLAYERS = {
   ONE: 'ONE',
@@ -18,27 +17,51 @@ export const DIRECTIONS = {
 
 export const UNITS = {
   TrollGreen: {
-    maxHP: 10,
+    maxHP: 30,
     gold: 15,
     cost: 20,
     damage: 2,
-    range: 1,
-    speed: 1,
+    range: 20,
+    speed: 5,
   },
-  Knight: {
-    maxHP: 5,
-    gold: 23,
-    cost: 30,
-    damage: 3,
-    range: 3,
-    speed: 1,
-  },
-  Warrior: {
-    maxHP: 30,
+  TrollRed: {
+    maxHP: 50,
     gold: 45,
     cost: 60,
     damage: 6,
-    range: 1,
-    speed: 0.5,
+    range: 20,
+    speed: 2,
+  },
+  TrollGrey: {
+    maxHP: 50,
+    gold: 45,
+    cost: 60,
+    damage: 6,
+    range: 20,
+    speed: 2,
+  },
+  Knight: {
+    maxHP: 35,
+    gold: 23,
+    cost: 30,
+    damage: 3,
+    range: 20,
+    speed: 1,
+  },
+  Warrior: {
+    maxHP: 25,
+    gold: 45,
+    cost: 60,
+    damage: 6,
+    range: 20,
+    speed: 2,
+  },
+  Paladin: {
+    maxHP: 25,
+    gold: 45,
+    cost: 60,
+    damage: 6,
+    range: 20,
+    speed: 2,
   },
 };

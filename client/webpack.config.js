@@ -8,8 +8,6 @@ var isDevelopment = process.argv.indexOf('--development') !== -1;
 
 var entryPath = path.join(__dirname, './src/index.js');
 var entry = isDevelopment ? [
-  'webpack-hot-middleware/client?reload=true',
-  'react-hot-loader/patch',
   entryPath
 ] : entryPath;
 
@@ -41,7 +39,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['jsx-loader', 'babel-loader', 'react-hot-loader/webpack'],
+      loaders: ['jsx-loader', 'babel-loader'],
       exclude: /node_modules/
     }, {
       test: /\.svg$/,

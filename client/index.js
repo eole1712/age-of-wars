@@ -14,10 +14,8 @@ if (isDevelopment) {
   const webpackConfig = require('./webpack.config');
 
   const compiler = webpack(webpackConfig);
-  console.log('compile');
 
   app.use(require('webpack-dev-middleware')(compiler, {
-    hot: true,
     stats: {
       colors: true,
     },

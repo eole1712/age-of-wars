@@ -7,9 +7,9 @@ const units = {
   Knight: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.15 },
   Paladin: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.15 },
   Warrior: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.15 },
-  TrollGreen: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.15 },
-  TrollRed: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.15 },
-  TrollGrey: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.15 },
+  TrollGreen: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.3 },
+  TrollRed: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.3 },
+  TrollGrey: { modes: ['attack', 'die', 'hurt', 'run', 'walk'], nbSprites: 7, scale: 0.3 },
 };
 
 export default mapValues(

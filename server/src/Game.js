@@ -1,9 +1,12 @@
 /* eslint-disable no-plusplus,no-param-reassign */
 
-import { find } from 'lodash';
+import { find, orderBy } from 'lodash';
 
 import * as config from '../config';
+
 import Player from './Player';
+
+const { DIRECTIONS } = config;
 
 export default class Game {
   constructor(io) {
@@ -11,11 +14,15 @@ export default class Game {
     this.io = io;
 
     this.players = [];
+
     this.lastID = 0;
+    this.lastSend = {};
   }
 
   get json() {
-    return this.players.map(p => p.json);
+    return {
+      players: this.players.map(p => p.json),
+    };
   }
 
   addPlayer(p) {
@@ -35,7 +42,35 @@ export default class Game {
   }
 
   loop() {
-    this.sync();
+    this.players.forEach((p) => {
+      p.units = orderBy(p.units, 'position', DIRECTIONS[p.id] === -1 ? 'asc' : 'desc');
+    });
+
+    const [p1, p2] = this.players;
+
+    if (p1) {
+      p1.units.forEach((u, i, units) => {
+        const closeEnemyUnit = p2 && p2.units.length ? p2.units[0] : null;
+        if (closeEnemyUnit && closeEnemyUnit.position - u.position <= u.range) {
+          u.attack(closeEnemyUnit);
+        } else if (i === 0 || units[i - 1].position - u.position > u.speed) {
+          u.move();
+        }
+      });
+    }
+
+    if (p2) {
+      p2.units.forEach((u, i, units) => {
+        const closeEnemyUnit = p1 && p1.units.length ? p1.units[0] : null;
+        if (closeEnemyUnit && u.position - closeEnemyUnit.position <= u.range) {
+          u.attack(closeEnemyUnit);
+        } else if (i === 0 || u.position - units[i - 1].position > u.speed) {
+          u.move();
+        }
+      });
+    }
+
+    console.log(this.players.map(p => p.units.map(u => u.id + ' ' + u.position)));
   }
 
   init() {
@@ -59,9 +94,11 @@ export default class Game {
       });
 
       socket.on('buyUnit', (unitId) => {
-        console.log('buyUnit', unitId);
-        this.getPlayer(id).buyUnit(unitId);
-        this.sync();
+        const u = this.getPlayer(id);
+        if (u) {
+          console.log('buyUnit', unitId);
+          this.getPlayer(id).buyUnit(unitId);
+        }
       });
     });
     this.isInitialised = true;
@@ -71,6 +108,6 @@ export default class Game {
     if (!this.isInitialised) {
       this.init();
     }
-    // setInterval(() => this.loop(), 1000 / config.FPS);
+    setInterval(() => this.loop(), 10000 / config.FPS);
   }
 }

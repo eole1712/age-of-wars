@@ -1,5 +1,7 @@
 import { UNITS, POSITIONS } from '../config';
 
+import Events from './events';
+
 import UnitsList from './Units';
 
 export default class Player {
@@ -9,7 +11,6 @@ export default class Player {
     this.hp = 100;
     this.gold = 200;
     this.position = POSITIONS[id];
-
     this.units = [];
 
     console.log({
@@ -25,6 +26,9 @@ export default class Player {
       const u = new UnitsList[unitId](this.id, this.position);
       this.units.push(u);
       this.gold -= u.cost;
+
+      Events.UNIT_CREATE(u);
+
       return u;
     }
     return null;

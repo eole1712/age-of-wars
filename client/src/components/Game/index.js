@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign,react/prop-types */
 import React, { Component } from 'react';
-import openSocket from 'socket.io-client';
 
-// import Screen from '../Screen';
+import { flatMapDepth } from 'lodash';
+import socket from '../../helpers/socket';
 
-const socket = openSocket('http://localhost:8000');
+import Screen from '../Screen';
+
 
 class Game extends Component {
   constructor(props) {
@@ -16,19 +17,14 @@ class Game extends Component {
     };
 
     this.emit = this.emit.bind(this);
-    this.updateState = this.updateState.bind(this);
-  }
-  componentDidMount() {
-    socket.on('configuration', config => this.updateState({ config }));
-    socket.on('sync', players => this.updateState({ players }));
   }
 
-  updateState(newState) {
-    this.setState(prev => ({ ...prev, newState }));
+  componentDidMount() {
+    socket.on('configuration', config => this.setState({ config }));
+    socket.on('sync', players => this.setState({ players }));
   }
 
   emit() {
-    console.log(this.state);
     const units = this.state.config.UNITS;
 
     const nb = Math.floor(Object.keys(units).length * Math.random());
@@ -38,13 +34,12 @@ class Game extends Component {
   }
 
   render() {
-    console.log('Render game');
-    setTimeout(() => {
-      this.emit();
-    }, 2000);
     return (
-      // <Screen onClick={this.emit} />
-      <div />
+      <Screen
+        onClick={this.emit}
+        units={flatMapDepth(this.state.players, p => p.units)}
+        socket={this.socket}
+      />
     );
   }
 }
